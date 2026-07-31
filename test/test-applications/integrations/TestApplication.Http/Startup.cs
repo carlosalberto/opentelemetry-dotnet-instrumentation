@@ -64,7 +64,9 @@ internal sealed class Startup
             .UseRouting() // enables metrics for Microsoft.AspNetCore.Routing in .NET8+
             .UseAuthentication() // enables metrics for Microsoft.AspNetCore.Authentication in .NET10+
             .UseExceptionHandler(new ExceptionHandlerOptions { ExceptionHandler = _ => Task.CompletedTask }) // together with call to /exception enables metrics for Microsoft.AspNetCore.Diagnostics for .NET8+
+#if NET7_0_OR_GREATER
             .UseRateLimiter() // enables metrics for Microsoft.AspNetCore.RateLimiting in .NET8+
+#endif
             .UseAuthorization() // enables metrics for Microsoft.AspNetCore.Authorization in .NET10+
             .UseEndpoints(endpoints =>
             {

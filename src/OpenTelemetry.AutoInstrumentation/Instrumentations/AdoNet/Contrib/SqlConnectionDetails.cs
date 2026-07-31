@@ -110,7 +110,7 @@ internal sealed partial class SqlConnectionDetails
         return connectionDetails;
     }
 
-#if NET
+#if NET7_0_OR_GREATER
     /*
      * Match...
      *  protocol[ ]:[ ]serverName
@@ -141,7 +141,7 @@ internal sealed partial class SqlConnectionDetails
     private static Regex DataSourceRegex() => DataSourceRegexField;
 #endif
 
-#if NET
+#if NET7_0_OR_GREATER
     /*
      * In a Data Source string like "np:\\serverName\pipe\MSSQL$instanceName\pipeName" match the
      * "pipe\MSSQL$instanceName" segment to extract instanceName if it is available.

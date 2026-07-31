@@ -34,7 +34,7 @@ internal static class SqlProcessor
 
     private static readonly char[] WhitespaceChars = [SpaceChar, TabChar, CarriageReturnChar, NewLineChar];
 
-#if NET
+#if NET8_0_OR_GREATER
     private static readonly SearchValues<char> WhitespaceSearchValues = SearchValues.Create(WhitespaceChars);
 #endif
 
@@ -164,7 +164,7 @@ internal static class SqlProcessor
         return Cache.TryGetValue(sql, out var existing) ? existing : sqlStatementInfo;
     }
 
-#if !NET
+#if !NET7_0_OR_GREATER
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     private static bool IsAsciiLetter(char c)
     {
@@ -175,7 +175,7 @@ internal static class SqlProcessor
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     private static bool IsAsciiDigit(char c) =>
-#if NET
+#if NET7_0_OR_GREATER
         char.IsAsciiDigit(c);
 #else
         c is >= '0' and <= '9';
@@ -183,7 +183,7 @@ internal static class SqlProcessor
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     private static bool IsUnescapedIdentifierChar(char c) =>
-#if NET
+#if NET7_0_OR_GREATER
         char.IsLetter(c) || char.IsAsciiDigit(c) || c == UnderscoreChar || c == DotChar;
 #else
         char.IsLetter(c) || IsAsciiDigit(c) || c == UnderscoreChar || c == DotChar;
@@ -275,7 +275,7 @@ internal static class SqlProcessor
         // and trim the summary to that position. This avoids truncating within an operation name or target.
         if (state.SummaryPosition > MaxSummaryLength)
         {
-#if NET
+#if NET8_0_OR_GREATER
             var indexOfLastWhitespace = summary.Slice(0, MaxSummaryLength).LastIndexOfAny(WhitespaceSearchValues);
 #else
             var indexOfLastWhitespace = summary.Slice(0, MaxSummaryLength).LastIndexOfAny(WhitespaceChars);
@@ -367,7 +367,7 @@ internal static class SqlProcessor
         var start = state.ParsePosition;
         var remaining = sql.Length - start;
 
-#if NET
+#if NET8_0_OR_GREATER
         var indexOfNextWhitespace = sql.Slice(start).IndexOfAny(WhitespaceSearchValues);
 #else
         var indexOfNextWhitespace = sql.Slice(start).IndexOfAny(WhitespaceChars);
@@ -394,7 +394,7 @@ internal static class SqlProcessor
         // Quick first-character filter: only attempt keyword matching if the current char is an ASCII letter.
         // NOTE: We don't check CaptureNextNonKeywordTokenAsIdentifier here because we want to capture and handle keywords
         // first, before considering identifiers.
-#if NET
+#if NET7_0_OR_GREATER
         var mayBeKeyword = !state.InEscapedIdentifier && char.IsAsciiLetter(currentChar);
 #else
         var mayBeKeyword = !state.InEscapedIdentifier && IsAsciiLetter(currentChar);
@@ -411,7 +411,7 @@ internal static class SqlProcessor
             while (asciiLetterLength < remaining)
             {
                 var ch = sql[start + asciiLetterLength];
-#if NET
+#if NET7_0_OR_GREATER
                 if (!char.IsAsciiLetter(ch))
 #else
                 if (!IsAsciiLetter(ch))
@@ -654,7 +654,7 @@ internal static class SqlProcessor
         {
             var currentChar = sql[i];
 
-#if NET
+#if NET8_0_OR_GREATER
             if (WhitespaceSearchValues.Contains(currentChar))
 #else
             if (currentChar is SpaceChar or TabChar or CarriageReturnChar or NewLineChar)
@@ -805,7 +805,7 @@ internal static class SqlProcessor
             for (i += 2; i < length; ++i)
             {
                 ch = sql[i];
-#if NET
+#if NET7_0_OR_GREATER
                 if (char.IsAsciiHexDigit(ch))
                 {
                     continue;

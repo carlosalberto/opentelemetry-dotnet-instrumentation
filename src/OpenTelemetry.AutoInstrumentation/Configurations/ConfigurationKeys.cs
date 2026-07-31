@@ -72,7 +72,7 @@ internal partial class ConfigurationKeys
     /// <summary>
     /// Configuration key template for enabling resource detectors.
     /// </summary>
-#if NET
+#if NET8_0_OR_GREATER
     public static readonly CompositeFormat EnabledResourceDetectorTemplate = CompositeFormat.Parse("OTEL_DOTNET_AUTO_{0}_RESOURCE_DETECTOR_ENABLED");
 #else
     public const string EnabledResourceDetectorTemplate = "OTEL_DOTNET_AUTO_{0}_RESOURCE_DETECTOR_ENABLED";
@@ -134,7 +134,7 @@ internal partial class ConfigurationKeys
         /// <summary>
         /// Configuration key template for disabled trace instrumentations.
         /// </summary>
-#if NET
+#if NET8_0_OR_GREATER
         public static readonly CompositeFormat EnabledTracesInstrumentationTemplate = CompositeFormat.Parse("OTEL_DOTNET_AUTO_TRACES_{0}_INSTRUMENTATION_ENABLED");
 #else
         public const string EnabledTracesInstrumentationTemplate = "OTEL_DOTNET_AUTO_TRACES_{0}_INSTRUMENTATION_ENABLED";
@@ -248,7 +248,7 @@ internal partial class ConfigurationKeys
         /// <summary>
         /// Configuration key template for enabled metric instrumentations.
         /// </summary>
-#if NET
+#if NET8_0_OR_GREATER
         public static readonly CompositeFormat EnabledMetricsInstrumentationTemplate = CompositeFormat.Parse("OTEL_DOTNET_AUTO_METRICS_{0}_INSTRUMENTATION_ENABLED");
 #else
         public const string EnabledMetricsInstrumentationTemplate = "OTEL_DOTNET_AUTO_METRICS_{0}_INSTRUMENTATION_ENABLED";
@@ -297,7 +297,7 @@ internal partial class ConfigurationKeys
         /// <summary>
         /// Configuration key template for enabled log instrumentations.
         /// </summary>
-#if NET
+#if NET8_0_OR_GREATER
         public static readonly CompositeFormat EnabledLogsInstrumentationTemplate = CompositeFormat.Parse("OTEL_DOTNET_AUTO_LOGS_{0}_INSTRUMENTATION_ENABLED");
 #else
         public const string EnabledLogsInstrumentationTemplate = "OTEL_DOTNET_AUTO_LOGS_{0}_INSTRUMENTATION_ENABLED";

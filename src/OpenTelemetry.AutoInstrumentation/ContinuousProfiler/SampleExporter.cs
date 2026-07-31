@@ -23,7 +23,7 @@ internal class SampleExporter : IDisposable
 
     public SampleExporter(BufferProcessor bufferProcessor, TimeSpan exportInterval, TimeSpan exportTimeout)
     {
-#if NET
+#if NET8_0_OR_GREATER
         ArgumentOutOfRangeException.ThrowIfLessThanOrEqual(exportInterval, TimeSpan.Zero);
         ArgumentOutOfRangeException.ThrowIfLessThanOrEqual(exportTimeout, TimeSpan.Zero);
 #else

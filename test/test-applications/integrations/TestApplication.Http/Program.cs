@@ -63,7 +63,9 @@ internal static class Program
         Host.CreateDefaultBuilder(args)
             .ConfigureServices(
                 services => services
+#if NET7_0_OR_GREATER
                 .AddRateLimiter(rateLimiterOptions => rateLimiterOptions.GlobalLimiter = PartitionedRateLimiter.Create<HttpContext, string>(httpContext => RateLimitPartition.GetNoLimiter("1")))
+#endif
                 .AddConnections()
                 .AddSignalR())
             .ConfigureWebHostDefaults(webBuilder =>

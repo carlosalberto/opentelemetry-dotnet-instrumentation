@@ -9,7 +9,9 @@ namespace DependencyListGenerator.DotNetOutdated.Services;
 /// </remarks>
 public static class DotNetRunner
 {
-    private const int CommandTimeoutMilliseconds = 20_000;
+    // IMPORTANT: Dash0 note: this runner takes longer to execute as it has to check status for all the
+    // supported .Net versions (6, 7, 8, 9 and 10), and thus to cap the timeout from 30 to 60 seconds.
+    private const int CommandTimeoutMilliseconds = 60_000;
     private const int OutputDrainTimeoutMilliseconds = 5_000;
 
     public static RunStatus Run(string workingDirectory, string[] arguments)

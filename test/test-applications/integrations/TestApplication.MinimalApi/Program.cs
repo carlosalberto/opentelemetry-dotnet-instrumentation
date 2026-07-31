@@ -32,9 +32,9 @@ httpClient.GetAsync(new Uri($"{address}/test")).Wait();
 
 internal static partial class LoggerExtensions
 {
-    [LoggerMessage(Level = LogLevel.Information, Message = "Logged before host is built.")]
+    [LoggerMessage(EventId = 1, Level = LogLevel.Information, Message = "Logged before host is built.")]
     public static partial void LogBeforeHostBuilt(this ILogger logger);
 
-    [LoggerMessage(Level = LogLevel.Information, Message = "Request received.")]
+    [LoggerMessage(EventId = 2, Level = LogLevel.Information, Message = "Request received.")]
     public static partial void LogRequestReceived(this ILogger logger);
 }

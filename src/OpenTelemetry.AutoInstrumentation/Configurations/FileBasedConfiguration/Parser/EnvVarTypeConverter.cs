@@ -89,7 +89,7 @@ internal partial class EnvVarTypeConverter : IYamlTypeConverter
         });
     }
 
-#if NET
+#if NET7_0_OR_GREATER
     [GeneratedRegex(@"\$\{([A-Z0-9_]+)(?::-([^}]*))?\}", RegexOptions.Compiled)]
     private static partial Regex GetEnvVarRegex();
 

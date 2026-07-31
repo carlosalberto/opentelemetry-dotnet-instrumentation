@@ -62,6 +62,7 @@
     <PackageVersion Include="System.ServiceModel.Http" Version="10.0.652802" />
     <PackageVersion Include="System.ServiceModel.NetTcp" Version="10.0.652802" />
     <PackageVersion Include="System.ServiceModel.Primitives" Version="10.0.652802" />
+    <PackageVersion Include="System.Threading.RateLimiting" Version="10.0.9" />
     <PackageVersion Include="System.Text.Json" Version="10.0.9" />
     <PackageVersion Include="System.ValueTuple" Version="4.6.2" />
     <PackageVersion Include="Testcontainers" Version="4.13.0" />

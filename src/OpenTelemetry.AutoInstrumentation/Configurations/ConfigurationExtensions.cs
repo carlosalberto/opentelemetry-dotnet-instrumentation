@@ -10,7 +10,7 @@ namespace OpenTelemetry.AutoInstrumentation.Configurations;
 
 internal static class ConfigurationExtensions
 {
-#if NET
+#if NET8_0_OR_GREATER
     public static IReadOnlyList<TEnum> ParseEnabledEnumList<TEnum>(this Configuration source, bool enabledByDefault, CompositeFormat enabledConfigurationTemplate)
 #else
     public static IReadOnlyList<TEnum> ParseEnabledEnumList<TEnum>(this Configuration source, bool enabledByDefault, string enabledConfigurationTemplate)

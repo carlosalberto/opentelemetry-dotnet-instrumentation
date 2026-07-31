@@ -70,7 +70,11 @@ internal class OpenTelemetrySdkMinimumVersionRule : Rule
 
     protected virtual Version? GetVersionFromAutoInstrumentation()
     {
-        var openTelemetryLocation = Path.Combine(_instrumentationHomePath, OpenTelemetryAssemblyFileName);
+        // OpenTelemetry.dll may live in the runtime-version-specific subfolder (e.g. net6.0)
+        // rather than directly under _instrumentationHomePath, so use the same version-aware
+        // resolution as the rest of the agent assemblies.
+        var openTelemetryLocation = ManagedProfilerLocationHelper.GetAssemblyPath("OpenTelemetry")
+            ?? Path.Combine(_instrumentationHomePath, OpenTelemetryAssemblyFileName);
         var openTelemetryFileVersionInfo = FileVersionInfo.GetVersionInfo(openTelemetryLocation);
         var openTelemetryFileVersion = new Version(openTelemetryFileVersionInfo.FileVersion);
 

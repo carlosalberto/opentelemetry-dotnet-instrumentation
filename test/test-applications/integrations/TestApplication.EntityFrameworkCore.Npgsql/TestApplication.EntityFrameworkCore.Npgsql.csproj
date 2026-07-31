@@ -1,13 +1,18 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net10.0;net9.0;net8.0</TargetFrameworks>
+    <TargetFrameworks>net10.0;net9.0;net8.0;net7.0;net6.0</TargetFrameworks>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Npgsql" />
-    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Condition=" '$(TargetFramework)' != 'net9.0' and '$(TargetFramework)' != 'net8.0' " />
+    <PackageReference Include="Npgsql" Condition=" '$(TargetFramework)' != 'net7.0' and '$(TargetFramework)' != 'net6.0' " />
+    <PackageReference Include="Npgsql" VersionOverride="8.0.5" Condition=" '$(TargetFramework)' == 'net7.0' or '$(TargetFramework)' == 'net6.0' " />
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Condition=" '$(TargetFramework)' != 'net9.0' and '$(TargetFramework)' != 'net8.0' and '$(TargetFramework)' != 'net7.0' and '$(TargetFramework)' != 'net6.0' " />
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" VersionOverride="9.0.4" Condition=" '$(TargetFramework)' == 'net9.0' or '$(TargetFramework)' == 'net8.0' " />
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" VersionOverride="7.0.18" Condition=" '$(TargetFramework)' == 'net7.0' " />
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" VersionOverride="6.0.29" Condition=" '$(TargetFramework)' == 'net6.0' " />
+    <!-- Microsoft.Extensions.Caching.Memory is indirect reference. Bumping it to mitigate https://github.com/advisories/GHSA-qj66-m88j-hmgj -->
+    <PackageReference Include="Microsoft.Extensions.Caching.Memory" Condition=" '$(TargetFramework)' == 'net7.0' or '$(TargetFramework)' == 'net6.0' " />
   </ItemGroup>
 
 </Project>

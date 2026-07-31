@@ -42,6 +42,7 @@ partial class Build
 
     private static readonly IEnumerable<TargetFramework> TargetFrameworks =
     [
+       TargetFramework.NET6_0,
        TargetFramework.NET8_0,
        TargetFramework.NET462,
     ];
@@ -52,6 +53,8 @@ partial class Build
         TargetFramework.NET47,
         TargetFramework.NET471,
         TargetFramework.NET472,
+        TargetFramework.NET6_0,
+        TargetFramework.NET7_0,
         TargetFramework.NET8_0,
         TargetFramework.NET9_0,
         TargetFramework.NET10_0
