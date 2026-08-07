@@ -140,10 +140,22 @@ HRESULT STDMETHODCALLTYPE CorProfiler::Initialize(IUnknown* cor_profiler_info_un
         home_path = GetEnvironmentValue(environment::profiler_home_path);
     }
 
+    // Our own compiled assemblies (e.g. OpenTelemetry.AutoInstrumentation.dll) may live under a
+    // runtime-version-specific subfolder (e.g. net8.0) instead of the common "net" root, if they
+    // differ between the target frameworks that were built. Compute that subfolder name so
+    // IsStandaloneDeployment can find them there too.
+    WSTRING deployment_detection_version_subdir = EmptyWStr;
+    if (runtime_information_.is_core())
+    {
+        deployment_detection_version_subdir = WStr("net") + ToWSTRING(static_cast<uint64_t>(runtime_information_.major_version)) +
+                                              WStr(".") + ToWSTRING(static_cast<uint64_t>(runtime_information_.minor_version));
+    }
+
     // if assembly redirection is not set through env variable, we will enable it for standalone deployments,
     // and disable it for non-standalone deployments (e.g., NuGet-based) where we don't ship our dependencies
     assembly_redirection_enabled_ = IsAssemblyRedirectionEnabled().value_or(
-        IsStandaloneDeployment(GetCurrentModuleFileName(), home_path, runtime_information_.is_desktop()));
+        IsStandaloneDeployment(GetCurrentModuleFileName(), home_path, runtime_information_.is_desktop(),
+                              deployment_detection_version_subdir));
     if (assembly_redirection_enabled_)
     {
         InitAssemblyRedirectsMap();
