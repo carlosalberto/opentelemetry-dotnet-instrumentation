@@ -28,7 +28,7 @@ internal static class TcpPortProvider
         }
         finally
         {
-#if NET
+#if NET8_0_OR_GREATER
             tcpListener?.Dispose();
 #else
             tcpListener?.Stop();
