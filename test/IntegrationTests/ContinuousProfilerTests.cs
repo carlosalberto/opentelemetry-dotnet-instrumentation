@@ -33,7 +33,7 @@ public class ContinuousProfilerTests : TestHelper
     {
     }
 
-#if NET // allocator tests are only supported on .NET
+#if NET8_0_OR_GREATER // allocator tests are only supported on .NET
     [Fact]
     [Trait("Category", "EndToEnd")]
     public void ExportAllocationSamples()

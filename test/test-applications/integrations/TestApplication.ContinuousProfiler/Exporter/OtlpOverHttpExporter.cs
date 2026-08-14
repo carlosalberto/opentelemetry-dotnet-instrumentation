@@ -28,7 +28,7 @@ internal sealed class OtlpOverHttpExporter : IContinuousProfilerExporter, IDispo
     public OtlpOverHttpExporter(TimeSpan cpuPeriod, SampleNativeFormatParser parser)
     {
         _parser = parser;
-#if NET
+#if NET7_0_OR_GREATER
         this.cpuPeriod = (long)cpuPeriod.TotalNanoseconds;
 #else
         this.cpuPeriod = cpuPeriod.Ticks * 100L; // convert to nanoseconds
